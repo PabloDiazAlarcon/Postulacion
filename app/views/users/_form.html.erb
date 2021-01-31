@@ -1,0 +1,47 @@
+<%= form_with(model: user, local: true) do |form| %>
+  <% if user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+        <% user.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :email %>
+    <%= form.text_field :email %>
+  </div>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label "Peliculas" %>
+    <select name="selected_movie">
+      <option value="0">Seleccione</option>
+    <% @movie.each do |m| %>
+      <option value="<%= m.id %>"><%= m.name %></option>
+    <% end %>
+    </select>
+  </div>
+
+  <div class="field">
+    <%= form.label "Series" %>
+    <select name="selected_tv_series">
+      <option value="0">Seleccione</option>
+    <% @tv_serie.each do |ts| %>
+      <option value="<%= ts.id %>"><%= ts.name %></option>
+    <% end %>
+    </select>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "Guardar" %>
+  </div>
+<% end %>

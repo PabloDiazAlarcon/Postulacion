@@ -1,0 +1,72 @@
+<br><br><br>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">  
+      <div class="card" style=" width: 100%;">
+        <%= form_with(model: @user, local: true) do |form| %>
+          <% if @user.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+              <ul>
+                <% @user.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+
+          <div class="card-header">
+              <h5 class="card-title" style="text-align: center;">Editando Cliente: <%= @user.name %></h5>
+          </div>
+
+          <div class="card-body">
+
+            <div class="mb-3 row" style="text-align: center;">
+              <%= form.label :email, class: 'col-sm-2 col-form-label' %>
+              <div class="col-sm-10">
+                <%= form.email_field :email, class: 'form-control' %>
+              </div>
+            </div>
+
+            <div class="mb-3 row" style="text-align: center;">
+              <%= form.label :name, class: 'col-sm-2 col-form-label' %>
+              <div class="col-sm-10">
+                <%= form.text_field :name, class: 'form-control' %>
+              </div>
+            </div>
+
+            <div class="mb-3 row" style="text-align: center;">
+              <%= form.label "Peliculas", class: 'col-sm-2 col-form-label'%>
+              <div class="col-sm-10">
+                <%= select("selected_movie", "", [['Seleccione', 0]] + Movie.all.collect { |p| [p.name, p.id]}, { selected: @venta.movie_id }, class: "form-select") %>
+              </div>
+            </div>
+
+            <div class="mb-3 row" style="text-align: center;">
+              <%= form.label "Series", class: 'col-sm-2 col-form-label'%>
+              <div class="col-sm-10">
+                <%= select("selected_tv_series", "", [['Seleccione', 0]] + TvSerie.all.collect { |p| [p.name, p.id]}, { selected: @venta.tv_serie_id }, class: "form-select") %>
+              </div>
+            </div>
+
+
+            <div class="actions" style="text-align: right;">
+              <%= form.submit "Guardar", class:"btn btn-success" %>
+            </div>
+          </div>
+          <div class="card-footer">
+            <%= link_to 'Atrás', users_path, class:"btn btn-outline-warning", style:"text-align: left;", 'aria-hidden' => true %>
+          </div>
+          
+        <% end %>
+
+      </div>
+
+    </div>
+    <div class="col-md-3"></div>
+  </div>
+</div>

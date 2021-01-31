@@ -1,0 +1,58 @@
+<br><br><br>
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">  
+      <div class="card" style=" width: 100%;">
+        <div class="card-header">
+          <div class="row">
+            <div class="card-title col-md-2">
+              <h2 style="text-align: center;">Clientes</h2>
+            </div>
+            <div class="card-subtitle  col-md-10" style="text-align: right;">
+              <%= link_to 'Agregar Nuevo Cliente', new_user_path, class: "btn btn-outline-primary", style: "color: black;", 'aria-hidden' => true %>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-striped table-hover table-bordered">
+              <thead class="table-light ">
+                <tr>
+                  <th style="text-align: center;">Email</th>
+                  <th style="text-align: center;">Nombre</th>
+                  <th style="text-align: center;">Pelicula</th>
+                  <th style="text-align: center;">Serie</th>
+                  <th colspan="3" style="text-align: center;">Acciones</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <% @ventas.each do |v| %>
+                  <tr>
+                    <td style="text-align: center;"><%= v.user.email %></td>
+                    <td style="text-align: center;"><%= v.user.name %></td>
+                    <% if v.movie_id == nil %>
+                      <td style="text-align: center;">No Arrendo</td>
+                    <% else %>
+                      <td style="text-align: center;"><%= v.movie.name %></td>
+                    <% end %>
+                    <% if v.tv_serie_id == nil %>
+                      <td style="text-align: center;">No Arrendo</td>
+                    <% else %>
+                      <td style="text-align: center;"><%= v.tv_serie.name %></td>
+                    <% end %>
+                    <td><%= link_to "<i class='fas fa-edit' aria-hidden='true' style='background: none;'></i>".html_safe, edit_user_path(v.user), style: "background: none;", 'aria-hidden' => true %></td>
+                    <td><%= link_to "<i class='fas fa-trash-alt' aria-hidden='true' style='background: none;'></i>".html_safe, v.user, method: :delete, data: { confirm: '¿Esta seguro de esta Acción?' }, style: "background: none;", 'aria-hidden' => true %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2"></div>
+</div>

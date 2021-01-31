@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @ventum.user_id %>
+</p>
+
+<p>
+  <strong>Movie:</strong>
+  <%= @ventum.movie_id %>
+</p>
+
+<p>
+  <strong>Tv serie:</strong>
+  <%= @ventum.tv_serie_id %>
+</p>
+
+<%= link_to 'Edit', edit_ventum_path(@ventum) %> |
+<%= link_to 'Back', venta_path %>
