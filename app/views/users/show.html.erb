@@ -1,14 +1,77 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Email:</strong>
-  <%= @user.email %>
-</p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @user.name %>
-</p>
+<br><br><br>
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">  
+      <div class="card" style=" width: 100%;">
+        <div class="card-header">
+          <div class="row">
+            <div class="card-title col-md-10">
+              <h4>Cliente: <%= @user.name %> </h2>
+              <h5>Email: <%= @user.email %></h5>
+            </div>
+            <div class="card-subtitle  col-md-2">
+              <%= link_to "<button class='btn btn-outline-primary'>Editar Cliente</button>".html_safe, edit_user_path(@user) %>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <h5>Peliculas Arrendadas</h5>
+          <div class="table-responsive">
+            <table class="table table-striped table-hover table-bordered">
+              <thead class="table-light ">
+                <tr>
+                  <th style="text-align: center;">Nombre Pelicula</th>
+                  <th style="text-align: center;">Genero</th>
+                  <th style="text-align: center;">Duracion</th>
+                  <th colspan="1"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @movies.each do |v| %>
+                  <tr>
+                    <td style="text-align: center;"><%= v.movie.name %></td>
+                    <td style="text-align: center;"><%= v.movie.genre %></td>
+                    <td style="text-align: center;"><%= v.movie.time %></td>
+                    <td style="text-align: center;"><%= link_to "<i class='fas fa-trash-alt' aria-hidden='true' style='background: none;'></i>".html_safe, application_delete_venta_movie_from_show_path(id: v.id, user_id: @user.id), method: "post", data: { confirm: '¿Esta seguro de esta Acción?' }, style: "background: none;", 'aria-hidden' => true %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+          <h5>Series Arrendadas</h5>
+          <div class="table-responsive">
+            <table class="table table-striped table-hover table-bordered">
+              <thead class="table-light ">
+                <tr>
+                  <th style="text-align: center;">Nombre Serie</th>
+                  <th style="text-align: center;">Genero</th>
+                  <th style="text-align: center;">Temporadas</th>
+                  <th colspan="1"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @tv_series.each do |v| %>
+                  <tr>
+                    <td style="text-align: center;"><%= v.tv_serie.name %></td>
+                    <td style="text-align: center;"><%= v.tv_serie.genre %></td>
+                    <td style="text-align: center;"><%= v.tv_serie.season %></td>
+                    <td style="text-align: center;"><%= link_to "<i class='fas fa-trash-alt' aria-hidden='true' style='background: none;'></i>".html_safe, application_delete_venta_tv_serie_from_show_path(id: v.id, user_id: @user.id), method: "post", data: { confirm: '¿Esta seguro de esta Acción?' }, style: "background: none;", 'aria-hidden' => true %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="card-footer">
+          <%= link_to 'Atrás', users_path, class:"btn btn-outline-warning", style:"text-align: left;", 'aria-hidden' => true %>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2"></div>
+</div>

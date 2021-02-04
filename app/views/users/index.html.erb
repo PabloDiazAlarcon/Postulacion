@@ -23,29 +23,19 @@
                 <tr>
                   <th style="text-align: center;">Email</th>
                   <th style="text-align: center;">Nombre</th>
-                  <th style="text-align: center;">Pelicula</th>
-                  <th style="text-align: center;">Serie</th>
+                  <th style="text-align: center;">Arriendos</th>
                   <th colspan="3" style="text-align: center;">Acciones</th>
                 </tr>
               </thead>
 
               <tbody>
-                <% @ventas.each do |v| %>
+                <% @users.each do |u| %>
                   <tr>
-                    <td style="text-align: center;"><%= v.user.email %></td>
-                    <td style="text-align: center;"><%= v.user.name %></td>
-                    <% if v.movie_id == nil %>
-                      <td style="text-align: center;">No Arrendo</td>
-                    <% else %>
-                      <td style="text-align: center;"><%= v.movie.name %></td>
-                    <% end %>
-                    <% if v.tv_serie_id == nil %>
-                      <td style="text-align: center;">No Arrendo</td>
-                    <% else %>
-                      <td style="text-align: center;"><%= v.tv_serie.name %></td>
-                    <% end %>
-                    <td><%= link_to "<i class='fas fa-edit' aria-hidden='true' style='background: none;'></i>".html_safe, edit_user_path(v.user), style: "background: none;", 'aria-hidden' => true %></td>
-                    <td><%= link_to "<i class='fas fa-trash-alt' aria-hidden='true' style='background: none;'></i>".html_safe, v.user, method: :delete, data: { confirm: '¿Esta seguro de esta Acción?' }, style: "background: none;", 'aria-hidden' => true %></td>
+                    <td style="text-align: center;"><%= u.email %></td>
+                    <td style="text-align: center;"><%= u.name %></td>
+                      <td style="text-align: center;"><%= link_to "<button class='btn btn-outline-primary'>Arriendos</button>".html_safe, user_path(u), style: "background: none;", 'aria-hidden' => true %></td>
+                    <td><%= link_to "<i class='fas fa-edit' aria-hidden='true' style='background: none;'></i>".html_safe, edit_user_path(u), style: "background: none;", 'aria-hidden' => true %></td>
+                    <td><%= link_to "<i class='fas fa-trash-alt' aria-hidden='true' style='background: none;'></i>".html_safe, u, method: :delete, data: { confirm: '¿Esta seguro de esta Acción?' }, style: "background: none;", 'aria-hidden' => true %></td>
                   </tr>
                 <% end %>
               </tbody>

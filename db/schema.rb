@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_31_160911) do
+ActiveRecord::Schema.define(version: 2021_02_03_201827) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,7 +51,29 @@ ActiveRecord::Schema.define(version: 2021_01_31_160911) do
     t.index ["user_id"], name: "index_venta_on_user_id"
   end
 
+  create_table "venta_movies", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "movie_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["movie_id"], name: "index_venta_movies_on_movie_id"
+    t.index ["user_id"], name: "index_venta_movies_on_user_id"
+  end
+
+  create_table "venta_tv_series", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "tv_serie_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["tv_serie_id"], name: "index_venta_tv_series_on_tv_serie_id"
+    t.index ["user_id"], name: "index_venta_tv_series_on_user_id"
+  end
+
   add_foreign_key "venta", "movies"
   add_foreign_key "venta", "tv_series", column: "tv_serie_id"
   add_foreign_key "venta", "users"
+  add_foreign_key "venta_movies", "movies"
+  add_foreign_key "venta_movies", "users"
+  add_foreign_key "venta_tv_series", "tv_series", column: "tv_serie_id"
+  add_foreign_key "venta_tv_series", "users"
 end

@@ -38,23 +38,13 @@
             <div class="mb-3 row" style="text-align: center;">
               <%= form.label "Peliculas", class: 'col-sm-2 col-form-label' %>
               <div class="col-sm-10">
-                <select name="selected_movie" class="form-select" >
-                  <option value="0">Seleccione</option>
-                <% @movie.each do |m| %>
-                  <option value="<%= m.id %>"><%= m.name %></option>
-                <% end %>
-                </select>
+                <%= select("selected_movie", "", [['Seleccione', 0]] + Movie.all.collect { |p| [p.name, p.id]}, { selected: 0 }, class: "form-select", multiple:"true", 'aria-hidden' => "multiple select example" ) %>
               </div>
             </div>
             <div class="mb-3 row" style="text-align: center;">
               <%= form.label "Series", class: 'col-sm-2 col-form-label' %>
               <div class="col-sm-10">
-                <select name="selected_tv_series" class="form-select" >
-                  <option value="0">Seleccione</option>
-                  <% @tv_serie.each do |ts| %>
-                    <option value="<%= ts.id %>"><%= ts.name %></option>
-                  <% end %>
-                </select>
+                <%= select("selected_tv_series", "", [['Seleccione', 0]] + TvSerie.all.collect { |p| [p.name, p.id]}, { selected: 0 }, class: "form-select", multiple:"true", 'aria-hidden' => "multiple select example" ) %>
               </div>
             </div>
 

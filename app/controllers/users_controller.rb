@@ -3,11 +3,13 @@ class UsersController < ApplicationController
 
   # GET /users or /users.json
   def index
-    @ventas = Ventum.all
+    @users = User.all
   end
 
   # GET /users/1 or /users/1.json
   def show
+    @movies = VentaMovie.where(user_id: params[:id])
+    @tv_series = VentaTvSerie.where(user_id: params[:id])
   end
 
   # GET /users/new
@@ -21,7 +23,6 @@ class UsersController < ApplicationController
   def edit
     @movie = Movie.all
     @tv_serie = TvSerie.all
-    @venta = Ventum.find_by(user_id: params[:id])
   end
 
   # POST /users or /users.json
@@ -29,28 +30,41 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     respond_to do |format|
       if @user.save
-        if params[:selected_movie] != "0" && params[:selected_tv_series] == "0"
-          puts "entro pelicula"
-          @ventasMovie = Ventum.new
-          @ventasMovie.user_id = @user.id
-          @ventasMovie.movie_id = params[:selected_movie].to_i
-          @ventasMovie.save
-        elsif params[:selected_tv_series] != "0" && params[:selected_movie] == "0"
-          puts "entro serie"
-          @ventasTvSerie = Ventum.new
-          @ventasTvSerie.user_id = @user.id
-          @ventasTvSerie.tv_serie_id = params[:selected_tv_series].to_i
-          @ventasTvSerie.save
-        elsif params[:selected_movie] != "0" && params[:selected_tv_series] != "0"
-          puts "entro pelicula y serie"
-          @ventas = Ventum.new
-          @ventas.user_id = @user.id
-          @ventas.movie_id = params[:selected_movie].to_i
-          @ventas.tv_serie_id = params[:selected_tv_series].to_i
-          @ventas.save
+
+        a = params[:selected_movie].to_a
+        b = params[:selected_movie].first
+        a.delete(b)
+        @selected_movies = a
+        c = params[:selected_tv_series].to_a
+        d = params[:selected_tv_series].first
+        c.delete(d)
+        @selected_tv_series = c
+
+        for i in 0..@selected_movies.length
+          @movie_id = @selected_movies[i].to_s.gsub('"', '').gsub('[', '').gsub(']', '').to_i
+          if @movie_id == 0
+          else
+            @venta_movie = VentaMovie.new
+            @venta_movie.user_id = @user.id
+            @venta_movie.movie_id = @movie_id
+            @venta_movie.save
+          end
+        end
+
+        for x in 0..@selected_tv_series.length
+          @tv_serie_id = @selected_tv_series[x].to_s.gsub('"', '').gsub('[', '').gsub(']', '').to_i
+          if @tv_serie_id == 0
+          else
+            @venta_tv_serie = VentaTvSerie.new
+            @venta_tv_serie.user_id = @user.id
+            @venta_tv_serie.tv_serie_id = @tv_serie_id
+            @venta_tv_serie.save
+          end
         end
         
-        format.html { redirect_to users_path }
+        if @venta_movie.save && @venta_tv_serie.save
+          format.html { redirect_to users_path }
+        end
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @user.errors, status: :unprocessable_entity }
@@ -62,28 +76,54 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       if @user.update(user_params)
-            
-        @venta = Ventum.find_by(user_id: params[:id])
-        if params[:selected_movie] == ["0"] && params[:selected_tv_series] == ["0"]
-          @venta.movie_id = nil
-          @venta.tv_serie_id = nil
-          @venta.save
-        elsif params[:selected_movie] != ["0"] && params[:selected_tv_series] != ["0"]
-          @venta.movie_id = params[:selected_movie].first
-          @venta.tv_serie_id = params[:selected_tv_series].first
-          @venta.save
-        elsif params[:selected_movie] == ["0"] && params[:selected_tv_series] != ["0"]
-          @venta.movie_id = nil
-          @venta.tv_serie_id = params[:selected_tv_series].first
-          @venta.save
-        elsif params[:selected_movie] != ["0"] && params[:selected_tv_series] == ["0"]
-          @venta.movie_id = params[:selected_movie].first
-          @venta.tv_serie_id = nil
-          @venta.save
+        @venta_movies = VentaMovie.where(user_id: params[:id])
+        @venta_tv_series = VentaTvSerie.where(user_id: params[:id])
+        a = params[:selected_movie].to_a
+        b = params[:selected_movie].first
+        a.delete(b)
+        @selected_movies = a
+        c = params[:selected_tv_series].to_a
+        d = params[:selected_tv_series].first
+        c.delete(d)
+        @selected_tv_series = c
+        
+        if @selected_movies.first == ["0"]
+          @venta_movies.destroy_all
+        else
+          @venta_movies.destroy_all
+          for i in 0..@selected_movies.length
+            @movie_id = @selected_movies[i].to_s.gsub('"', '').gsub('[', '').gsub(']', '').to_i
+
+            if @movie_id == 0
+            else
+              @venta_movie = VentaMovie.new
+              @venta_movie.user_id = @user.id
+              @venta_movie.movie_id = @movie_id
+              @venta_movie.save
+            end
+
+          end
         end
-        if @venta.save
+
+        if @selected_tv_series.first == ["0"]
+          @venta_tv_series.destroy_all
+        else
+          @venta_tv_series.destroy_all
+          for x in 0..@selected_tv_series.length
+            @tv_serie_id = @selected_tv_series[x].to_s.gsub('"', '').gsub('[', '').gsub(']', '').to_i
+
+            if @tv_serie_id == 0
+            else
+              @venta_tv_serie = VentaTvSerie.new
+              @venta_tv_serie.user_id = @user.id
+              @venta_tv_serie.tv_serie_id = @tv_serie_id
+              @venta_tv_serie.save
+            end
+
+          end
+        end
+        
           format.html { redirect_to users_path }
-        end
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @user.errors, status: :unprocessable_entity }

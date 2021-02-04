@@ -42,14 +42,14 @@
             <div class="mb-3 row" style="text-align: center;">
               <%= form.label "Peliculas", class: 'col-sm-2 col-form-label'%>
               <div class="col-sm-10">
-                <%= select("selected_movie", "", [['Seleccione', 0]] + Movie.all.collect { |p| [p.name, p.id]}, { selected: @venta.movie_id }, class: "form-select") %>
+                <%= select("selected_movie", "", [['Seleccione para eliminar peliculas arrendadas', 0]] + Movie.all.collect { |p| [p.name, p.id]}, { selected: 0 }, class: "form-select", multiple:"true", 'aria-hidden' => "multiple select example" ) %>
               </div>
             </div>
 
             <div class="mb-3 row" style="text-align: center;">
               <%= form.label "Series", class: 'col-sm-2 col-form-label'%>
               <div class="col-sm-10">
-                <%= select("selected_tv_series", "", [['Seleccione', 0]] + TvSerie.all.collect { |p| [p.name, p.id]}, { selected: @venta.tv_serie_id }, class: "form-select") %>
+                <%= select("selected_tv_series", "", [['Seleccione para eliminar series arrendadas', 0]] + TvSerie.all.collect { |p| [p.name, p.id]}, { selected: 0 }, class: "form-select", multiple:"true", 'aria-hidden' => "multiple select example" ) %>
               </div>
             </div>
 
