@@ -3,13 +3,17 @@ class UsersController < ApplicationController
 
   # GET /users or /users.json
   def index
-    @users = User.all
+    @search = User.all.search(params[:q])
+    @users = @search.result.page(params[:page]).per(10)
   end
 
   # GET /users/1 or /users/1.json
   def show
-    @movies = VentaMovie.where(user_id: params[:id])
-    @tv_series = VentaTvSerie.where(user_id: params[:id])
+    @search_movies = VentaMovie.where(user_id: params[:id]).search(params[:q])
+    @movies = @search_movies.result.includes(:user, :movie).page(params[:page]).per(10)
+    
+    @search_tv_series = VentaTvSerie.where(user_id: params[:id]).search(params[:q])
+    @tv_series = @search_tv_series.result.page(params[:page]).per(10)
   end
 
   # GET /users/new

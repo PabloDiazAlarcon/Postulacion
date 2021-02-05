@@ -30,4 +30,29 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  views:
+    pagination:
+      first: "&laquo; Primero"
+      last: "Ultimo &raquo;"
+      previous: "&lsaquo; Anterior"
+      next: "Siguiente &rsaquo;"
+      truncate: "&hellip;"
+  helpers:
+    page_entries_info:
+      one_page:
+        display_entries:
+          zero: "No se Encontro %{entry_name}"
+          one: "Mostrando <b>1</b> %{entry_name}"
+          other: "Mostrando <b>todos %{count}</b> %{entry_name}"
+      more_pages:
+        display_entries: "Mostrando %{entry_name} <b>%{first}&nbsp;-&nbsp;%{last}</b> de <b>%{total}</b> en total"
+  ransack:
+    asc: ascendente
+    desc: descendente
+    predicates:
+      cont: contiene
+      not_cont: no contiene
+      start: inicia con
+      end: termina con
+      gt: mayor que
+      lt: menor que

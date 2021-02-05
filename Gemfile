@@ -1,15 +1,21 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.6.5'
+ruby '2.6.6'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0.3', '>= 6.0.3.4'
 # gema para postgresql
-# gem 'pg'
+gem 'pg'
+
 gem 'devise'
+
+gem 'kaminari'
+
+gem 'ransack', github: 'activerecord-hackery/ransack'
+
 # Use sqlite3 as the database for Active Record
-gem 'sqlite3', '1.3.13'
+# gem 'sqlite3', '1.3.13'
 # Use Puma as the app server
 gem 'puma', '~> 4.1'
 # Use SCSS for stylesheets

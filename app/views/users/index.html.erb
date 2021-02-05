@@ -17,6 +17,17 @@
           </div>
         </div>
         <div class="card-body">
+          <%= search_form_for @search do |f| %>
+            <div class="mb-3 row" style="text-align: center;">
+              <%= f.label "Buscar por Nombre Cliente", class: 'col-sm-3 col-form-label' %>
+              <div class="col-sm-3">
+                <%= f.search_field :name_cont , class: 'form-control' %>
+              </div>
+              <div class="col-sm-2">
+                <%= f.submit "Buscar", class: 'btn btn-outline-primary' %>
+              </div>
+            </div>
+          <% end %>
           <div class="table-responsive">
             <table class="table table-striped table-hover table-bordered">
               <thead class="table-light ">
@@ -40,6 +51,7 @@
                 <% end %>
               </tbody>
             </table>
+            <%= paginate @users, window: 2 %>
           </div>
         </div>
       </div>

@@ -40,9 +40,10 @@
                     <td style="text-align: center;"><%= v.movie.time %></td>
                     <td style="text-align: center;"><%= link_to "<i class='fas fa-trash-alt' aria-hidden='true' style='background: none;'></i>".html_safe, application_delete_venta_movie_from_show_path(id: v.id, user_id: @user.id), method: "post", data: { confirm: '¿Esta seguro de esta Acción?' }, style: "background: none;", 'aria-hidden' => true %></td>
                   </tr>
-                <% end %>
+                  <% end %>
               </tbody>
             </table>
+            <%= paginate @movies, window: 2 %>
           </div>
           <h5>Series Arrendadas</h5>
           <div class="table-responsive">
@@ -66,6 +67,7 @@
                 <% end %>
               </tbody>
             </table>
+            <%= paginate @tv_series, window: 2 %>
           </div>
         </div>
         <div class="card-footer">
