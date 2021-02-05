@@ -12,7 +12,7 @@ gem 'devise'
 
 gem 'kaminari'
 
-gem 'ransack', github: 'activerecord-hackery/ransack'
+gem 'ransack'
 
 # Use sqlite3 as the database for Active Record
 # gem 'sqlite3', '1.3.13'
